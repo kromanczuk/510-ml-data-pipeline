@@ -1,0 +1,22 @@
+[project]
+name = "wine-quality-pipeline"
+version = "0.1.0"
+description = "Simple ML pipeline that predicts whether a red wine is rated good (quality >= 6)."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "kagglehub==1.0.3",
+    "pandas==3.1.1",
+    "scikit-learn==1.9.1",
+    "matplotlib==3.11.2",
+    "ipykernel==7.4.0",
+    "ipywidgets==8.1.9",
+]
+
+[dependency-groups]
+dev = [
+    "jupyterlab",
+]
+
+[tool.uv]
+package = false  # a notebook project, not an installable package

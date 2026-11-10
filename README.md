@@ -44,13 +44,24 @@ All steps are in [wine_pipeline.ipynb](wine_pipeline.ipynb), which is saved with
 
 ## Run it
 
+With [uv](https://docs.astral.sh/uv/) (recommended):
+
+```bash
+uv sync
+uv run jupyter lab wine_pipeline.ipynb
+```
+
+Or with plain pip:
+
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt jupyterlab
 .venv/bin/jupyter lab wine_pipeline.ipynb
 ```
 
-Then run all cells from the top (or open the notebook in VS Code with the `.venv` kernel). Versions are pinned in `requirements.txt` and the dataset version is pinned in the notebook's config cell, so a rerun reproduces the numbers above.
+Then run all cells from the top (or open the notebook in VS Code with the project's `.venv` kernel). Dependencies are pinned in `pyproject.toml` (locked in `uv.lock`) and `requirements.txt`, and the dataset version is pinned in the notebook's config cell, so a rerun reproduces the numbers above.
+
+If you change a dependency, update `pyproject.toml`, run `uv lock`, and keep `requirements.txt` in sync.
 
 ## Limitations
 
