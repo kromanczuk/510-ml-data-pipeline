@@ -42,16 +42,38 @@ All steps are in [wine_pipeline.ipynb](wine_pipeline.ipynb), which is saved with
 7. **Model:** scikit-learn `Pipeline` of `StandardScaler` followed by `LogisticRegression`. The scaler sits inside the pipeline, so it is fitted on training data only.
 8. **Evaluation:** accuracy, confusion matrix and classification report on the held-out test set.
 
+## Requirements
+
+- **Python 3.11 or newer** (declared as `requires-python = ">=3.11"` in `pyproject.toml`). Developed and tested on Python 3.14; 3.11 is the declared minimum and has not been run.
+- Internet access on the first run, to download the dataset from Kaggle (no Kaggle account or API key needed).
+
 ## Run it
 
-With [uv](https://docs.astral.sh/uv/) (recommended):
+Run all cells from the top once the notebook is open. You can also open it in VS Code and pick the project's `.venv` kernel.
+
+### Option A: uv (recommended)
+
+[uv](https://docs.astral.sh/uv/) installs the right Python version and the locked dependencies for you.
+
+**macOS / Linux**
 
 ```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh   # skip if uv is already installed (or: brew install uv)
 uv sync
 uv run jupyter lab wine_pipeline.ipynb
 ```
 
-Or with plain pip:
+**Windows (PowerShell)**
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"   # skip if uv is already installed
+uv sync
+uv run jupyter lab wine_pipeline.ipynb
+```
+
+### Option B: plain pip
+
+**macOS / Linux**
 
 ```bash
 python3 -m venv .venv
@@ -59,7 +81,17 @@ python3 -m venv .venv
 .venv/bin/jupyter lab wine_pipeline.ipynb
 ```
 
-Then run all cells from the top (or open the notebook in VS Code with the project's `.venv` kernel). Dependencies are pinned in `pyproject.toml` (locked in `uv.lock`) and `requirements.txt`, and the dataset version is pinned in the notebook's config cell, so a rerun reproduces the numbers above.
+**Windows (PowerShell)**
+
+```powershell
+py -3 -m venv .venv
+.venv\Scripts\pip install -r requirements.txt jupyterlab
+.venv\Scripts\jupyter lab wine_pipeline.ipynb
+```
+
+> Tested on macOS: installing from `uv.lock` and `requirements.txt` and executing the notebook end to end. Not run: the `jupyter lab` launch and the uv installer one-liners. The Windows commands use the standard equivalents (`.venv\Scripts` instead of `.venv/bin`, `py -3` instead of `python3`) but have not been run on a Windows machine.
+
+Dependencies are pinned in `pyproject.toml` (locked in `uv.lock`) and `requirements.txt`, and the dataset version is pinned in the notebook's config cell, so a rerun reproduces the numbers above.
 
 If you change a dependency, update `pyproject.toml`, run `uv lock`, and keep `requirements.txt` in sync.
 
